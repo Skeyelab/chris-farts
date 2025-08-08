@@ -4,3 +4,4 @@ export { FlashingText } from './FlashingText';
 export { BackgroundDecorations } from './BackgroundDecorations';
 export { FunElements } from './FunElements';
 export { ErrorBoundary } from './ErrorBoundary';
+export { GitHubLink } from './GitHubLink';

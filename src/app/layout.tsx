@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE_CONFIG } from "@/constants/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,18 +14,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chris Farts - Fun Bouncing Cat Website",
+  title: `${SITE_CONFIG.name} - ${SITE_CONFIG.description}`,
   description: "A fun interactive website featuring a bouncing emoji cat and flashing text. Welcome to the fun zone!",
   keywords: ["fun", "cat", "emoji", "animation", "bouncing", "interactive"],
-  authors: [{ name: "Chris Farts Team" }],
+  authors: [{ name: SITE_CONFIG.author }],
   openGraph: {
-    title: "Chris Farts - Fun Bouncing Cat Website",
+    title: `${SITE_CONFIG.name} - ${SITE_CONFIG.description}`,
     description: "A fun interactive website featuring a bouncing emoji cat and flashing text",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chris Farts - Fun Bouncing Cat Website",
+    title: `${SITE_CONFIG.name} - ${SITE_CONFIG.description}`,
     description: "A fun interactive website featuring a bouncing emoji cat and flashing text",
   },
 };

@@ -5,7 +5,8 @@ import {
   BouncingCat,
   FlashingText,
   BackgroundDecorations,
-  FunElements
+  FunElements,
+  GitHubLink
 } from '@/components';
 import { useBouncingCat, useFlashingText } from '@/hooks';
 import { BACKGROUND_CONFIG } from '@/constants/animation';
@@ -21,6 +22,8 @@ export default function Home() {
   return (
     <ErrorBoundary>
       <div className={`min-h-screen ${BACKGROUND_CONFIG.gradient} overflow-hidden relative`}>
+        <GitHubLink />
+        
         <BouncingCat position={catPosition} rotation={catRotation} />
 
         <FlashingText isFlashing={isFlashing} text="hi chris" />
