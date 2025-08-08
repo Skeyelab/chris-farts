@@ -13,7 +13,7 @@ export const MagicCircus = () => {
   const handleCircusClick = () => {
     setIsActive(!isActive);
     setShowMagic(true);
-    
+
     // Create magical particles
     const newParticles = Array.from({ length: 20 }, (_, i) => ({
       id: i,
@@ -24,7 +24,7 @@ export const MagicCircus = () => {
       color: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'][Math.floor(Math.random() * 7)]
     }));
     setParticles(newParticles);
-    
+
     // Hide magic effect after 3 seconds
     setTimeout(() => setShowMagic(false), 3000);
   };
@@ -34,7 +34,7 @@ export const MagicCircus = () => {
     if (particles.length === 0) return;
 
     const interval = setInterval(() => {
-      setParticles(prev => 
+      setParticles(prev =>
         prev.map(particle => ({
           ...particle,
           x: particle.x + particle.vx,
@@ -53,11 +53,11 @@ export const MagicCircus = () => {
       {/* Magic Circus Tent */}
       <div
         className={`absolute top-20 left-10 text-white text-2xl cursor-pointer transition-all duration-500 ${
-          isActive 
-            ? 'animate-bounce scale-125 filter brightness-150 drop-shadow-lg' 
+          isActive
+            ? 'animate-bounce scale-125 filter brightness-150 drop-shadow-lg'
             : 'animate-bounce'
         }`}
-        style={{ 
+        style={{
           animationDelay: '1s',
           filter: isActive ? 'hue-rotate(180deg) brightness(1.5) drop-shadow(0 0 20px rgba(255,255,255,0.8))' : undefined
         }}
@@ -127,4 +127,4 @@ export const MagicCircus = () => {
       )}
     </>
   );
-}; 
+};
