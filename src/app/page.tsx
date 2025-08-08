@@ -17,7 +17,7 @@ import { BACKGROUND_CONFIG } from '@/constants/animation';
  * Uses modular components and custom hooks for better maintainability
  */
 export default function Home() {
-  const { catPosition, catRotation } = useBouncingCat();
+  const { catPosition, catRotation, catVelocity } = useBouncingCat();
   const isFlashing = useFlashingText();
 
   return (
@@ -25,7 +25,7 @@ export default function Home() {
       <div className={`min-h-screen ${BACKGROUND_CONFIG.gradient} overflow-hidden relative`}>
         <GitHubLink />
 
-        <BouncingCat position={catPosition} rotation={catRotation} />
+        <BouncingCat position={catPosition} rotation={catRotation} velocity={catVelocity} />
 
         <FlashingText isFlashing={isFlashing} text="hi chris" />
 
