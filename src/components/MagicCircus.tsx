@@ -50,9 +50,9 @@ export const MagicCircus = () => {
           y: particle.y + particle.vy,
           vy: particle.vy + 0.05, // Gentler gravity
           vx: particle.vx * 0.98, // Air resistance
-        })).filter(particle => 
-          particle.y < window.innerHeight + 100 && 
-          particle.x > -50 && 
+        })).filter(particle =>
+          particle.y < window.innerHeight + 100 &&
+          particle.x > -50 &&
           particle.x < window.innerWidth + 50
         ) // Remove particles that fall off screen
       );
