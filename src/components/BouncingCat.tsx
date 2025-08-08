@@ -17,7 +17,7 @@ export const BouncingCat = ({ position, rotation, velocity }: BouncingCatProps) 
   // Calculate if cat is moving fast (chasing)
   const speed = velocity ? Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y) : 0;
   const isChasing = speed > 3;
-  
+
   return (
     <div
       className={`fixed text-6xl z-10 transition-all duration-50 ease-linear animate-bounce-custom ${

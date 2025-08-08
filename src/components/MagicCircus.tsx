@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { CIRCUS_EMOJI } from '@/constants/animation';
 
 /**
@@ -8,25 +8,34 @@ export const MagicCircus = () => {
   const [isActive, setIsActive] = useState(false);
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; vx: number; vy: number; color: string }>>([]);
   const [showMagic, setShowMagic] = useState(false);
+  const tentRef = useRef<HTMLDivElement>(null);
 
   // Toggle circus magic
   const handleCircusClick = () => {
     setIsActive(!isActive);
     setShowMagic(true);
 
+    // Get tent position for particle origin
+    const tentRect = tentRef.current?.getBoundingClientRect();
+    const tentX = tentRect ? tentRect.left + tentRect.width / 2 : 100;
+    const tentY = tentRect ? tentRect.top + tentRect.height / 2 : 80;
+
     // Create magical particles
     const newParticles = Array.from({ length: 20 }, (_, i) => ({
       id: i,
-      x: 50, // Start from circus tent position
-      y: 100,
-      vx: (Math.random() - 0.5) * 8,
-      vy: (Math.random() - 0.5) * 8,
+      x: tentX,
+      y: tentY,
+      vx: (Math.random() - 0.5) * 6,
+      vy: (Math.random() - 0.5) * 6 - 2, // Slight upward bias
       color: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8'][Math.floor(Math.random() * 7)]
     }));
     setParticles(newParticles);
 
     // Hide magic effect after 3 seconds
-    setTimeout(() => setShowMagic(false), 3000);
+    setTimeout(() => {
+      setShowMagic(false);
+      setParticles([]); // Clear particles
+    }, 3000);
   };
 
   // Animate particles
@@ -39,9 +48,13 @@ export const MagicCircus = () => {
           ...particle,
           x: particle.x + particle.vx,
           y: particle.y + particle.vy,
-          vy: particle.vy + 0.1, // Gravity
-          vx: particle.vx * 0.99, // Air resistance
-        })).filter(particle => particle.y < window.innerHeight + 50) // Remove particles that fall off screen
+          vy: particle.vy + 0.05, // Gentler gravity
+          vx: particle.vx * 0.98, // Air resistance
+        })).filter(particle => 
+          particle.y < window.innerHeight + 100 && 
+          particle.x > -50 && 
+          particle.x < window.innerWidth + 50
+        ) // Remove particles that fall off screen
       );
     }, 50);
 
@@ -52,6 +65,7 @@ export const MagicCircus = () => {
     <>
       {/* Magic Circus Tent */}
       <div
+        ref={tentRef}
         className={`absolute top-20 left-10 text-white text-2xl cursor-pointer transition-all duration-500 ${
           isActive
             ? 'animate-bounce scale-125 filter brightness-150 drop-shadow-lg'
@@ -72,17 +86,18 @@ export const MagicCircus = () => {
 
       {/* Magic Particles */}
       {showMagic && (
-        <div className="absolute inset-0 pointer-events-none z-40">
+        <div className="fixed inset-0 pointer-events-none z-40">
           {particles.map(particle => (
             <div
               key={particle.id}
-              className="absolute w-2 h-2 rounded-full animate-pulse"
+              className="absolute w-3 h-3 rounded-full animate-pulse"
               style={{
                 left: `${particle.x}px`,
                 top: `${particle.y}px`,
                 backgroundColor: particle.color,
-                boxShadow: `0 0 10px ${particle.color}`,
+                boxShadow: `0 0 15px ${particle.color}`,
                 animation: 'pulse 0.5s ease-in-out infinite alternate',
+                transform: 'translate(-50%, -50%)', // Center the particle
               }}
             />
           ))}
@@ -91,7 +106,7 @@ export const MagicCircus = () => {
 
       {/* Magic Sparkles */}
       {showMagic && (
-        <div className="absolute inset-0 pointer-events-none z-30">
+        <div className="fixed inset-0 pointer-events-none z-30">
           {Array.from({ length: 30 }).map((_, i) => (
             <div
               key={`sparkle-${i}`}
@@ -121,7 +136,7 @@ export const MagicCircus = () => {
 
       {/* Magic Text */}
       {showMagic && (
-        <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-white text-2xl font-bold z-50 animate-bounce">
+        <div className="fixed top-10 left-1/2 transform -translate-x-1/2 text-white text-2xl font-bold z-50 animate-bounce">
           🎪 MAGIC! 🎪
         </div>
       )}

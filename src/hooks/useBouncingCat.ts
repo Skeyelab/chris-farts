@@ -52,13 +52,13 @@ export const useBouncingCat = () => {
           const dx = mousePosition.x - prev.x;
           const dy = mousePosition.y - prev.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (distance > 0) {
             // Normalize and apply chase force
             const chaseForce = Math.min(1, chaseRadius / distance) * 0.5; // Stronger when closer
             const normalizedDx = dx / distance;
             const normalizedDy = dy / distance;
-            
+
             // Add chase velocity
             newVelX += normalizedDx * chaseForce;
             newVelY += normalizedDy * chaseForce;
@@ -71,7 +71,7 @@ export const useBouncingCat = () => {
           newX = newX <= 0 ? 0 : dimensions.width - ANIMATION_CONFIG.catSize;
           setCatRotation(prev => prev + ANIMATION_CONFIG.rotationAngle);
         }
-        
+
         if (newY <= 0 || newY >= dimensions.height - ANIMATION_CONFIG.catSize) {
           newVelY = -newVelY;
           newY = newY <= 0 ? 0 : dimensions.height - ANIMATION_CONFIG.catSize;
