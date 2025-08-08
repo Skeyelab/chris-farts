@@ -43,7 +43,7 @@ export const FlyingHearts = () => {
     if (!isBrowser() || hearts.length === 0) return;
 
     const interval = setInterval(() => {
-      setHearts(prevHearts => 
+      setHearts(prevHearts =>
         prevHearts.map(heart => {
           const dimensions = getWindowDimensions();
           if (!dimensions) return heart;
@@ -58,7 +58,7 @@ export const FlyingHearts = () => {
             newVelX = -newVelX;
             newX = newX <= 0 ? 0 : dimensions.width - heart.size;
           }
-          
+
           if (newY <= 0 || newY >= dimensions.height - heart.size) {
             newVelY = -newVelY;
             newY = newY <= 0 ? 0 : dimensions.height - heart.size;
@@ -102,4 +102,4 @@ export const FlyingHearts = () => {
       ))}
     </div>
   );
-}; 
+};

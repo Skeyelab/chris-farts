@@ -4,10 +4,10 @@ import {
   ErrorBoundary,
   BouncingCat,
   FlashingText,
-  BackgroundDecorations,
   FunElements,
   GitHubLink,
-  FlyingHearts
+  FlyingHearts,
+  FlyingSnowflakes
 } from '@/components';
 import { useBouncingCat, useFlashingText } from '@/hooks';
 import { BACKGROUND_CONFIG } from '@/constants/animation';
@@ -29,7 +29,7 @@ export default function Home() {
 
         <FlashingText isFlashing={isFlashing} text="hi chris" />
 
-        <BackgroundDecorations decorations={BACKGROUND_CONFIG.decorations} />
+        <FlyingSnowflakes />
 
         <FlyingHearts />
 

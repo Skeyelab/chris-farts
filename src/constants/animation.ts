@@ -9,15 +9,7 @@ export const ANIMATION_CONFIG: AnimationConfig = {
 
 export const BACKGROUND_CONFIG: BackgroundConfig = {
   gradient: 'bg-gradient-to-br from-purple-400 via-pink-500 to-red-500',
-  decorations: [
-    {
-      emoji: '🌟',
-      count: 20,
-      className: 'text-2xl opacity-20 animate-sparkle',
-      animationDuration: { min: 2, max: 4 },
-      opacity: 0.2,
-    },
-  ],
+  decorations: [],
 };
 
 export const SPARKLE_EMOJIS = ['🌟', '✨', '💫', '⭐'];
