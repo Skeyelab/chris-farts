@@ -52,13 +52,13 @@ export const useBouncingCat = () => {
           const dx = prev.x - mousePosition.x;
           const dy = prev.y - mousePosition.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (distance > 0) {
             // Normalize and apply avoidance force
             const avoidanceForce = (avoidanceRadius - distance) / avoidanceRadius;
             const normalizedDx = dx / distance;
             const normalizedDy = dy / distance;
-            
+
             // Add avoidance velocity
             newVelX += normalizedDx * avoidanceForce * 2;
             newVelY += normalizedDy * avoidanceForce * 2;
@@ -71,7 +71,7 @@ export const useBouncingCat = () => {
           newX = newX <= 0 ? 0 : dimensions.width - ANIMATION_CONFIG.catSize;
           setCatRotation(prev => prev + ANIMATION_CONFIG.rotationAngle);
         }
-        
+
         if (newY <= 0 || newY >= dimensions.height - ANIMATION_CONFIG.catSize) {
           newVelY = -newVelY;
           newY = newY <= 0 ? 0 : dimensions.height - ANIMATION_CONFIG.catSize;

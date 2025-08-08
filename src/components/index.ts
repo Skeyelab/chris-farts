@@ -7,3 +7,4 @@ export { ErrorBoundary } from './ErrorBoundary';
 export { GitHubLink } from './GitHubLink';
 export { FlyingHearts } from './FlyingHearts';
 export { FlyingSnowflakes } from './FlyingSnowflakes';
+export { MagicCircus } from './MagicCircus';

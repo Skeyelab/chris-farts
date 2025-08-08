@@ -1,4 +1,5 @@
-import { BALLOON_EMOJI, CIRCUS_EMOJI } from '@/constants/animation';
+import { BALLOON_EMOJI } from '@/constants/animation';
+import { MagicCircus } from './MagicCircus';
 
 /**
  * Component for rendering fun decorative elements
@@ -15,12 +16,9 @@ export const FunElements = () => {
       <div className="absolute top-10 right-10 text-white text-2xl animate-bounce">
         {BALLOON_EMOJI}
       </div>
-      <div
-        className="absolute top-20 left-10 text-white text-2xl animate-bounce"
-        style={{ animationDelay: '1s' }}
-      >
-        {CIRCUS_EMOJI}
-      </div>
+
+      {/* Magic Circus Tent */}
+      <MagicCircus />
     </>
   );
 };
