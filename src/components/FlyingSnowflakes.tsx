@@ -24,11 +24,14 @@ export const FlyingSnowflakes = () => {
   useEffect(() => {
     if (!isBrowser()) return;
 
+    const dimensions = getWindowDimensions();
+    if (!dimensions) return;
+
     const initialSnowflakes: FlyingSnowflake[] = Array.from({ length: 15 }, (_, i) => ({
       id: i,
       position: {
-        x: Math.random() * (window.innerWidth - 30),
-        y: Math.random() * (window.innerHeight - 30),
+        x: Math.random() * (dimensions.width - 30),
+        y: Math.random() * (dimensions.height - 30),
       },
       velocity: {
         x: (Math.random() - 0.5) * 1.5,

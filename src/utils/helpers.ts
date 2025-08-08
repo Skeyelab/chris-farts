@@ -45,6 +45,9 @@ export const getRandomDuration = (min: number, max: number): number => {
  * @returns Random item from the array
  */
 export const getRandomItem = <T>(array: T[]): T => {
+  if (!array || array.length === 0) {
+    throw new Error('Cannot pick random item from empty or undefined array');
+  }
   return array[Math.floor(Math.random() * array.length)];
 };
 
