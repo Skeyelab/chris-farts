@@ -23,7 +23,7 @@ export default function Home() {
     <ErrorBoundary>
       <div className={`min-h-screen ${BACKGROUND_CONFIG.gradient} overflow-hidden relative`}>
         <GitHubLink />
-        
+
         <BouncingCat position={catPosition} rotation={catRotation} />
 
         <FlashingText isFlashing={isFlashing} text="hi chris" />

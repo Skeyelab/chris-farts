@@ -7,4 +7,4 @@ export const SITE_CONFIG = {
   description: 'Fun Bouncing Cat Website',
   githubUrl: 'https://github.com/Skeyelab/chris-farts',
   author: 'Chris Farts Team',
-} as const; 
+} as const;
