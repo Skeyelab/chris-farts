@@ -1,103 +1,133 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [catPosition, setCatPosition] = useState({ x: 50, y: 50 });
+  const [catVelocity, setCatVelocity] = useState({ x: 3, y: 2 });
+  const [catRotation, setCatRotation] = useState(0);
+  const [isFlashing, setIsFlashing] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  // Bouncing cat animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCatPosition(prev => {
+        let newX = prev.x + catVelocity.x;
+        let newY = prev.y + catVelocity.y;
+        let newVelX = catVelocity.x;
+        let newVelY = catVelocity.y;
+
+        // Bounce off walls
+        if (newX <= 0 || newX >= window.innerWidth - 100) {
+          newVelX = -newVelX;
+          newX = newX <= 0 ? 0 : window.innerWidth - 100;
+          // Add some rotation when bouncing
+          setCatRotation(prev => prev + 180);
+        }
+        if (newY <= 0 || newY >= window.innerHeight - 100) {
+          newVelY = -newVelY;
+          newY = newY <= 0 ? 0 : window.innerHeight - 100;
+          // Add some rotation when bouncing
+          setCatRotation(prev => prev + 180);
+        }
+
+        setCatVelocity({ x: newVelX, y: newVelY });
+        return { x: newX, y: newY };
+      });
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, [catVelocity]);
+
+  // Flashing text animation
+  useEffect(() => {
+    const flashInterval = setInterval(() => {
+      setIsFlashing(prev => !prev);
+    }, 500);
+
+    return () => clearInterval(flashInterval);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 overflow-hidden relative">
+      {/* Bouncing Cat */}
+      <div
+        className="fixed text-6xl z-10 transition-all duration-50 ease-linear animate-bounce-custom"
+        style={{
+          left: `${catPosition.x}px`,
+          top: `${catPosition.y}px`,
+          transform: `rotate(${catRotation}deg)`,
+        }}
+      >
+        🐱
+      </div>
+
+      {/* Flashing "hi chris" text */}
+      <div className="absolute inset-0 flex items-center justify-center z-20">
+        <h1
+          className={`text-8xl font-bold text-white drop-shadow-2xl transition-all duration-300 ${
+            isFlashing
+              ? 'scale-110 text-yellow-300 animate-pulse'
+              : 'scale-100 text-white'
+          }`}
+          style={{
+            textShadow: isFlashing
+              ? '0 0 20px #fbbf24, 0 0 40px #f59e0b'
+              : '0 0 10px rgba(255,255,255,0.5)'
+          }}
+        >
+          hi chris
+        </h1>
+      </div>
+
+      {/* Background decoration */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-2xl opacity-20 animate-sparkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${2 + Math.random() * 2}s`
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            {['🌟', '✨', '💫', '⭐'][Math.floor(Math.random() * 4)]}
+          </div>
+        ))}
+      </div>
+
+      {/* Floating hearts */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(10)].map((_, i) => (
+          <div
+            key={`heart-${i}`}
+            className="absolute text-3xl opacity-30 animate-bounce"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${3 + Math.random() * 2}s`
+            }}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            💖
+          </div>
+        ))}
+      </div>
+
+      {/* Fun subtitle */}
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-xl font-semibold opacity-80 animate-rainbow">
+        🎉 Welcome to the fun zone! 🎉
+      </div>
+
+      {/* Additional fun elements */}
+      <div className="absolute top-10 right-10 text-white text-2xl animate-bounce">
+        🎈
+      </div>
+      <div className="absolute top-20 left-10 text-white text-2xl animate-bounce" style={{ animationDelay: '1s' }}>
+        🎪
+      </div>
     </div>
   );
 }
