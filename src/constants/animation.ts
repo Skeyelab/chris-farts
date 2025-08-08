@@ -17,13 +17,6 @@ export const BACKGROUND_CONFIG: BackgroundConfig = {
       animationDuration: { min: 2, max: 4 },
       opacity: 0.2,
     },
-    {
-      emoji: '💖',
-      count: 10,
-      className: 'text-3xl opacity-30 animate-bounce',
-      animationDuration: { min: 3, max: 5 },
-      opacity: 0.3,
-    },
   ],
 };
 

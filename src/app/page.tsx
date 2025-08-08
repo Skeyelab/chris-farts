@@ -6,7 +6,8 @@ import {
   FlashingText,
   BackgroundDecorations,
   FunElements,
-  GitHubLink
+  GitHubLink,
+  FlyingHearts
 } from '@/components';
 import { useBouncingCat, useFlashingText } from '@/hooks';
 import { BACKGROUND_CONFIG } from '@/constants/animation';
@@ -29,6 +30,8 @@ export default function Home() {
         <FlashingText isFlashing={isFlashing} text="hi chris" />
 
         <BackgroundDecorations decorations={BACKGROUND_CONFIG.decorations} />
+
+        <FlyingHearts />
 
         <FunElements />
       </div>
