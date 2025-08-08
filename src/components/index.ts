@@ -1,0 +1,6 @@
+// Export all components for easier imports
+export { BouncingCat } from './BouncingCat';
+export { FlashingText } from './FlashingText';
+export { BackgroundDecorations } from './BackgroundDecorations';
+export { FunElements } from './FunElements';
+export { ErrorBoundary } from './ErrorBoundary';
